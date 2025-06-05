@@ -35,9 +35,9 @@ DEBUG = True
 # ALLOWED_HOSTS = ["5c01-41-217-86-13.ngrok-free.app", "127.0.0.1"]
 # CSRF_TRUSTED_ORIGINS = ["https://5c01-41-217-86-13.ngrok-free.app"]
 
-CSRF_TRUSTED_ORIGINS = ["https://pyecommerce-production.up.railway.app/"]
+CSRF_TRUSTED_ORIGINS = ["https://pyecommerce-production.up.railway.app"]
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*"]   
 
 
 # Application definition
