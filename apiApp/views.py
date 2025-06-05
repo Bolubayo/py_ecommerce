@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response 
 from .models import Cart, Order, OrderItem, Product, Category, CartItem, Review, Wishlist
@@ -15,6 +16,12 @@ from .serializers import CategoryDetailSerializer, CategoryListSerializer, Produ
 stripe.api_key = settings.STRIPE_SECRET_KEY
 endpoint_secret = settings.WEBHOOK_SECRET
 User = get_user_model() 
+
+
+
+def home(request):
+    return JsonResponse({"status": "running"})
+
 
 
 @api_view(["GET"])
