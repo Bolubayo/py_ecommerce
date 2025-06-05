@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import sys
+
 
 load_dotenv()
 
@@ -87,38 +89,38 @@ WSGI_APPLICATION = "ecommerceApiProject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DB = os.getenv("DB")
+DB = os.getenv("DB")
 
-# if not DB:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": BASE_DIR / "db.sqlite3",
-#         }
-#     }
+if not DB:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
     
-# else:
+else:
+    DATABASES = {
+        'default': {
+            "ENGINE":"django.db.backends.postgresql",
+            "NAME":"railway",
+            "USER":"postgres",
+            "PASSWORD":os.getenv("PG_PASSWORD"),
+            "HOST":os.getenv("PG_HOST"),
+            "PORT":os.getenv("PG_PORT"),
+        }
+    }
+
 # DATABASES = {
 #         'default': {
 #             "ENGINE":"django.db.backends.postgresql",
 #             "NAME":"railway",
 #             "USER":"postgres",
-#             "PASSWORD":os.getenv("PG_PASSWORD"),
-#             "HOST":os.getenv("PG_HOST"),
-#             "PORT":os.getenv("PG_PORT"),
+#             "PASSWORD":"FSgEKLFcHqMKACkuDIRrXNMwlBnWLmEL",
+#             "HOST":"ballast.proxy.rlwy.net",
+#             "PORT":"13732",
 #         }
 #     }
-
-DATABASES = {
-        'default': {
-            "ENGINE":"django.db.backends.postgresql",
-            "NAME":"railway",
-            "USER":"postgres",
-            "PASSWORD":"FSgEKLFcHqMKACkuDIRrXNMwlBnWLmEL",
-            "HOST":"ballast.proxy.rlwy.net",
-            "PORT":"13732",
-        }
-    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -176,3 +178,18 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET")
 
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
