@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apiApp.models import Cart, CartItem, Category, CustomUser, Order, OrderItem, Product, ProductRating, Review, Wishlist
+from apiApp.models import Cart, CartItem, Category, CustomUser, CustomerAddress, Order, OrderItem, Product, ProductRating, Review, Wishlist
 from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
@@ -20,9 +20,33 @@ class CategoryAdmin(admin.ModelAdmin):
     
 admin.site.register(Category, CategoryAdmin)
 
-admin.site.register([Cart, CartItem, Review, ProductRating, Wishlist])
-admin.site.register(Order)
-admin.site.register(OrderItem)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ["product", "rating", "review", 'created', "updated"]
+admin.site.register(Review, ReviewAdmin)
+
+
+
+class CartAdmin(admin.ModelAdmin):
+    list_display = ("cart_code",)
+admin.site.register(Cart, CartAdmin)
+
+
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ("cart", "product", "quantity")
+admin.site.register(CartItem, CartItemAdmin)
+
+
+class ProductRatingAdmin(admin.ModelAdmin):
+    list_display = ("product", "average_rating", "total_reviews")
+admin.site.register(ProductRating, ProductRatingAdmin)
+
+class WishlistAdmin(admin.ModelAdmin):
+    list_display = ("user", "product")
+admin.site.register(Wishlist, WishlistAdmin)
+
+
+
+admin.site.register([Order, OrderItem, CustomerAddress])
 
 
 

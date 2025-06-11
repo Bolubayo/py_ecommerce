@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-8t@=2(h^5$%o6hspj&n0j4cebz(##ng(y8nvd8#^laxxwsw^(4"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ["*"]
 # CSRF_TRUSTED_ORIGINS = ["*"]
@@ -37,7 +37,11 @@ DEBUG = False
 # ALLOWED_HOSTS = ["5c01-41-217-86-13.ngrok-free.app", "127.0.0.1"]
 # CSRF_TRUSTED_ORIGINS = ["https://5c01-41-217-86-13.ngrok-free.app"]
 
-CSRF_TRUSTED_ORIGINS = ["https://pyecommerce-production.up.railway.app"]
+# CSRF_TRUSTED_ORIGINS = ["https://pyecommerce-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "https://ecommerce-next-psi-teal.vercel.app/",
+]
 
 ALLOWED_HOSTS = ["*"]   
 
@@ -52,19 +56,28 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "apiApp",
-    "rest_framework"
+    "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+
+CORS_ALLOWED_ORIGINS = [
+"http://localhost:3000",
+"https://ecommerce-next-psi-teal.vercel.app/",
+]
+
 
 ROOT_URLCONF = "ecommerceApiProject.urls"
 
@@ -158,12 +171,12 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STORAGES = {
-    # ...
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+# STORAGES = {
+#     # ...
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
 MEDIA_URL = "media/"
 
 MEDIA_ROOT = BASE_DIR/"media"
